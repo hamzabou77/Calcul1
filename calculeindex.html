@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آلة حاسبة iPhone</title>
+  <link rel="stylesheet" href="styles.css">
+<style type="text/css" id="dcoder_stylesheet">body {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1c1e;
+}
+
+.calculator {
+  width: 300px;
+  background: #000;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.display-container {
+  margin-bottom: 15px;
+}
+
+#display {
+  width: 100%;
+  height: 60px;
+  font-size: 2rem;
+  text-align: right;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  background: #333;
+  color: white;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  height: 60px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: white;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button.function {
+  background: #d4d4d2;
+  color: #000;
+}
+
+button.operator {
+  background: #ff9500;
+}
+
+button.operator.equal {
+  grid-column: span 1;
+  background: #ff9500;
+}
+
+button.zero {
+  grid-column: span 2;
+  border-radius: 30px;
+  text-align: left;
+  padding-left: 20px;
+  background: #505050;
+}
+
+button:not(.function):not(.operator) {
+  background: #505050;
+}</style></head>
+<body>
+  <div class="calculator">
+    <div class="display-container">
+      <input type="text" id="display" disabled>
+    </div>
+    <div class="buttons">
+      <button class="function" onclick="clearDisplay()">AC</button>
+      <button class="function" onclick="toggleSign()">±</button>
+      <button class="function" onclick="appendValue('%')">%</button>
+      <button class="operator" onclick="operate('/')">÷</button>
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="operate('*')">×</button>
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="operate('-')">−</button>
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="operate('+')">+</button>
+      <button class="zero" onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button class="operator equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+<script type="text/javascript" id="dcoder_script">let display = document.getElementById("display");
+let currentValue = "";
+
+function appendValue(value) {
+  currentValue += value;
+  display.value = currentValue;
+}
+
+function clearDisplay() {
+  currentValue = "";
+  display.value = "0";
+}
+
+function toggleSign() {
+  if (currentValue) {
+    if (currentValue.startsWith("-")) {
+      currentValue = currentValue.substring(1);
+    } else {
+      currentValue = "-" + currentValue;
+    }
+    display.value = currentValue;
+  }
+}
+
+function operate(operator) {
+  currentValue += operator;
+  display.value = currentValue;
+}
+
+function calculate() {
+  try {
+    currentValue = eval(currentValue).toString();
+    display.value = currentValue;
+  } catch (error) {
+    display.value = "Error";
+    currentValue = "";
+  }
+}</script></body></html>
